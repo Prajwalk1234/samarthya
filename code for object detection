@@ -1,0 +1,35 @@
+from google.colab import drive
+drive.mount('/content/gdrive')
+%cd /content/gdrive/My Drive/tiny_yolo_shetty
+!git clone https://github.com/AlexeyAB/darknet 
+
+import glob
+import os
+import numpy as np
+import sys
+
+current_dir = "/mydrive//yolov4_tiny_dog_cat//darknet//data//ts/"
+split_pct = 10;
+file_train = open("darknet/data/train.txt", "w")  
+file_val = open("darknet/data/test.txt", "w")  
+counter = 1  
+index_test = round(100 / split_pct)  
+for pathAndFilename in glob.iglob(os.path.join(current_dir, "*.jpg")):  
+        title, ext = os.path.splitext(os.path.basename(pathAndFilename))
+        if counter == index_test:
+                counter = 1
+                file_val.write(current_dir + "/" + title + '.jpg' + "\n")
+        else:
+                file_train.write(current_dir + "/" + title + '.jpg' + "\n")
+                counter = counter + 1
+file_train.close()
+file_val.close()
+'/content/gdrive/MyDrive/tiny_yolo_shetty'
+/content/gdrive/MyDrive/tiny_yolo_shetty/darknet/data
+%cd /content/gdrive/MyDrive/tiny_yolo_shetty/darknet
+!sed -i 's/OPENCV=0/OPENCV=1/' Makefile
+!sed -i 's/GPU=0/GPU=1/' Makefile
+!sed -i 's/CUDNN=0/CUDNN=1/' Makefile
+!sed -i 's/CUDNN_HALF=0/CUDNN_HALF=1/' Makefile
+!sed -i 's/LIBSO=0/LIBSO=1/' Makefile
+/content/gdrive/MyDrive/tiny_yolo_shetty/darknet
